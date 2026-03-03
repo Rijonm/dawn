@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Custom TCG Shop — Minimalist Overrides
+   ========================================================================== */
+
+/* Card cleanup — remove any residual borders, shadows, backgrounds */
+.card,
+.card--card,
+.card--standard,
+.card-wrapper {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.card__inner {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* Clean section headings — large, tight tracking */
+.section-header__title,
+.collection-list-title,
+h2.title {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+/* Generous section spacing on desktop */
+@media screen and (min-width: 750px) {
+  .section-template--*:not(:first-child) {
+    margin-top: 80px;
+  }
+}
+
+/* Product card text — clean and tight */
+.card__heading,
+.card__heading a {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.card-information .price {
+  font-weight: 400;
+}
+
+/* Banner — ensure left-aligned hero text breathes */
+.banner__content.banner__content--middle-left {
+  padding-left: 5%;
+}
+
+/* Collection card cleanup */
+.collection-card-wrapper,
+.card--collection {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
