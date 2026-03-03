@@ -46,12 +46,13 @@
       "settings": {
         "image_overlay_opacity": 0,
         "image_height": "large",
+        "image_behavior": "none",
         "desktop_content_position": "middle-left",
-        "show_text_box": false,
         "desktop_content_alignment": "left",
+        "show_text_box": false,
         "color_scheme": "scheme-1",
-        "mobile_content_alignment": "left",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "left",
         "show_text_below": false
       }
     },
@@ -95,32 +96,54 @@
         "padding_bottom": 40
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Neu eingetroffen",
-        "heading_size": "h0",
-        "collection": "all",
-        "products_to_show": 10,
-        "columns_desktop": 5,
-        "color_scheme": "scheme-1",
-        "show_view_all": true,
-        "view_all_style": "link",
-        "enable_desktop_slider": true,
-        "swipe_on_mobile": true,
-        "image_ratio": "square",
-        "show_secondary_image": false,
-        "show_vendor": true,
-        "show_rating": false,
-        "columns_mobile": "2",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
+    "1772579200cc8b9117": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_7c4b016_R7r7wH": {
+          "type": "ai_gen_block_7c4b016",
+          "settings": {
+            "desktop_width_percent": 100,
+            "grid_gap": 16,
+            "section_padding": 40,
+            "autoplay_interval": 4,
+            "card_height": 400,
+            "card_height_mobile": 300,
+            "card_border_radius": 8,
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "text_color": "#FFFFFF",
+            "title_size": 28,
+            "button_spacing": 16,
+            "button_text": "Shop now",
+            "button_bg_color": "#FFFFFF",
+            "button_text_color": "#000000",
+            "button_hover_bg_color": "#000000",
+            "button_hover_text_color": "#FFFFFF",
+            "button_font_size": 16,
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 24,
+            "button_border_radius": 4,
+            "title_1": "Collection 1",
+            "collection_1": "",
+            "title_2": "Collection 2",
+            "collection_2": "",
+            "title_3": "Collection 3",
+            "collection_3": "",
+            "title_4": "Collection 4",
+            "collection_4": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_7c4b016_R7r7wH"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "image_banner",
     "collection_list",
-    "featured_collection"
+    "1772579200cc8b9117"
   ]
 }
