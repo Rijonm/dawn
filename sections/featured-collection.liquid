@@ -72,11 +72,20 @@
     id="collection-{{ section.id }}"
     data-id="{{ section.id }}"
   >
-    <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
+    <div class="collection__title title-wrapper-with-link title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
       {%- if section.settings.title != blank -%}
         <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           {{ section.settings.title }}
         </h2>
+      {%- endif -%}
+      {%- if section.settings.show_view_all and more_in_collection -%}
+        <a
+          href="{{ section.settings.collection.url }}"
+          class="link underlined-link{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
+        >
+          {{ 'sections.featured_collection.view_all' | t }} &rarr;
+        </a>
       {%- endif -%}
       {%- if section.settings.description != blank
         or section.settings.show_description
@@ -165,49 +174,70 @@
       </ul>
       {%- if show_mobile_slider or show_desktop_slider -%}
         <div class="slider-buttons">
-          <button
-            type="button"
-            class="slider-button slider-button--prev"
-            name="previous"
-            aria-label="{{ 'general.slider.previous_slide' | t }}"
-            aria-controls="Slider-{{ section.id }}"
-          >
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
-          </button>
-          <div class="slider-counter caption">
-            <span class="slider-counter--current">1</span>
-            <span aria-hidden="true"> / </span>
-            <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-            <span class="slider-counter--total">{{ products_to_display }}</span>
+          <div class="slider-counter slider-counter--dots">
+            {%- for i in (1..products_to_display) -%}
+              <button
+                class="slider-counter__link slider-counter__link--dots{% if forloop.first %} slider-counter__link--active{% endif %}"
+                data-slide-index="{{ forloop.index }}"
+                aria-label="{{ 'general.slider.name' | t }} {{ forloop.index }}"
+                aria-controls="Slider-{{ section.id }}"
+              >
+                <span class="dot"></span>
+              </button>
+            {%- endfor -%}
           </div>
-          <button
-            type="button"
-            class="slider-button slider-button--next"
-            name="next"
-            aria-label="{{ 'general.slider.next_slide' | t }}"
-            aria-controls="Slider-{{ section.id }}"
-          >
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
-          </button>
+          <div class="slider-buttons__arrows">
+            <button
+              type="button"
+              class="slider-button slider-button--prev"
+              name="previous"
+              aria-label="{{ 'general.slider.previous_slide' | t }}"
+              aria-controls="Slider-{{ section.id }}"
+            >
+              <span class="svg-wrapper">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </button>
+            <button
+              type="button"
+              class="slider-button slider-button--next"
+              name="next"
+              aria-label="{{ 'general.slider.next_slide' | t }}"
+              aria-controls="Slider-{{ section.id }}"
+            >
+              <span class="svg-wrapper">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </button>
+          </div>
         </div>
+        <script>
+          (function () {
+            const section = document.getElementById('collection-{{ section.id }}');
+            if (!section) return;
+            const slider = section.querySelector('slider-component');
+            if (!slider) return;
+            const dots = section.querySelectorAll('.slider-counter__link--dots');
+
+            slider.addEventListener('slideChanged', (event) => {
+              const idx = event.detail.currentPage;
+              dots.forEach((dot, i) => {
+                dot.classList.toggle('slider-counter__link--active', i + 1 === idx);
+              });
+            });
+
+            dots.forEach((dot) => {
+              dot.addEventListener('click', () => {
+                const index = parseInt(dot.dataset.slideIndex);
+                const slide = slider.querySelector('#Slide-{{ section.id }}-' + index);
+                if (slide) slide.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+              });
+            });
+          })();
+        </script>
       {%- endif -%}
     </slider-component>
 
-    {%- if section.settings.show_view_all and more_in_collection -%}
-      <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-        <a
-          href="{{ section.settings.collection.url }}"
-          class="{% if section.settings.view_all_style == 'link' %}link underlined-link{% elsif section.settings.view_all_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
-          aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
-        >
-          {{ 'sections.featured_collection.view_all' | t }}
-        </a>
-      </div>
-    {%- endif -%}
     {% if section.settings.image_shape == 'arch' %}
       {{ 'mask-arch.svg' | inline_asset_content }}
     {%- endif -%}

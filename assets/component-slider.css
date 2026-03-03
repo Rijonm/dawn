@@ -375,3 +375,16 @@ slider-component.slider-component-full-width {
 .slider-button--prev:not([disabled]):hover .icon {
   transform: rotate(90deg) scale(1.1);
 }
+
+.collection .slider-buttons {
+  justify-content: space-between;
+}
+
+.slider-buttons__arrows {
+  display: flex;
+  align-items: center;
+}
+
+.collection .slider-counter--dots {
+  justify-content: flex-start;
+}
